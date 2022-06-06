@@ -5,11 +5,10 @@
   "main": "src/app.ts",
   "scripts": {
     "start": "node build/app.js",
-    "postinstall": "tsc",
     "dev": "nodemon ./src/app.ts",
-    "test": "jest",
-    "test-coverage": "jest --coverage",
-    "test-coverage-generate": "jest --coverage --coverageDirectory=coverage/jest"
+    "test": "jest --runInBand --silent",
+    "test-coverage": "jest --runInBand --coverage --silent",
+    "test-coverage-generate": "jest --silent --runInBand --coverageDirectory=coverage/jest"
   },
   "repository": {
     "type": "git",
@@ -21,11 +20,12 @@
     "express",
     "api"
   ],
-  "author": [
+  "authors": [
     "Alex Maccagnan",
-    "Cristian-valentin Purcea",
+    "Cristian-Valentin Purcea",
     "Itai Gramse",
-    "Astthor Arnar Bragason"
+    "Astthor Arnar Bragason",
+    "Teodor Jonasson"
   ],
   "license": "MIT",
   "bugs": {
@@ -40,10 +40,13 @@
     "express": "^4.17.3",
     "express-session": "^1.17.2",
     "helmet": "^5.0.2",
+    "moment": "^2.29.3",
     "mysql2": "^2.3.3",
     "passport": "^0.5.2",
     "passport-microsoft": "^1.0.0",
-    "sequelize": "^6.19.0"
+    "sequelize": "^6.19.0",
+		"typescript": "^4.7.2",
+		"ts-node": "^10.5.0"
   },
   "devDependencies": {
     "@types/cors": "^2.8.12",
@@ -51,7 +54,10 @@
     "@types/jest": "^27.4.1",
     "@types/passport": "^1.0.7",
     "@types/sequelize": "^4.28.11",
+    "@types/supertest": "^2.0.12",
     "nodemon": "^2.0.15",
+    "prettier": "^2.6.2",
+    "supertest": "^6.2.3",
     "ts-jest": "^27.1.4",
     "ts-node": "^10.5.0",
     "typescript": "^4.7.2"

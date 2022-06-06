@@ -19,18 +19,19 @@ import { ClassCodeRouter } from "./routes/class-code-router";
 import { AttendanceRouter } from "./routes/attendance-router";
 import { ClassRouter } from "./routes/class-router";
 import { isAuthenticated } from "./authentication/user-authentication";
+import { PerformanceRouter } from "./routes/performance-test-router";
 
 const port = process.env.PORT || 4200;
 const frontendHost = process.env.FRONTEND_APP || "localhost:3000";
 
 // Initialize the express engine
 const app: express.Application = express();
-app.use(
-  cors({
-    origin: frontendHost,
-    credentials: true,
-  })
-);
+// app.use(
+//   cors({
+//     origin: frontendHost,
+//     credentials: true,
+//   })
+// );
 app.use(json());
 loadDB(sequelize);
 
@@ -54,7 +55,7 @@ app.get("/", async (_req, res) => {
 // Routes
 
 app.use("/auth", AuthenticationRouter);
-app.use(isAuthenticated);
+//app.use(isAuthenticated);
 
 // Mixed Guards
 app.use("/subjects", SubjectRouter);
@@ -62,6 +63,7 @@ app.use("/users", UserRouter);
 app.use("/lectures", LectureRouter);
 app.use("/attendances", AttendanceRouter);
 app.use("/class-codes", ClassCodeRouter);
+app.use("/performance", PerformanceRouter);
 
 // Teacher guard only
 app.use("/classes", ClassRouter);

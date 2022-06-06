@@ -15,10 +15,10 @@ router.get("/attend/:code", async (req, res) => {
 
 router.use(teacherGuard);
 
-router.get("/:lectureId", (req, res) => {
+router.get("/:lectureId", async (req, res) => {
   const { lectureId } = req.params;
 
-  const code = ClassCodeService.generateCode(lectureId);
+  const code = await ClassCodeService.generateCode(lectureId);
 
   res.send({ code });
 });

@@ -54,4 +54,4 @@ const subjectAssociationInit = () => {
   })
 };
 
-export { Subject as Subject, subjectInit as subjectInit, subjectAssociationInit as subjectAssociationInit };
+export { Subject, subjectInit, subjectAssociationInit };

@@ -1,4 +1,5 @@
 import { Model, DataTypes, Sequelize } from "sequelize";
+import { stringDateTime } from "../utils/input-validators";
 import { Lecture } from "./lectures";
 import { User } from "./users";
 
@@ -18,6 +19,9 @@ const attendanceInit = (sequelize: Sequelize) => {
         allowNull: false,
         defaultValue: Sequelize.fn("NOW"),
         field: "attended_at",
+        set(value) {
+          this.setDataValue("attendedAt", stringDateTime(value));
+        },
       },
     },
     {
