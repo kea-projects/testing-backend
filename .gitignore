@@ -104,7 +104,6 @@ dist
 .tern-port
 
 # USER IGNORES
-package-lock.json
 build/
 *.code-workspace
 
