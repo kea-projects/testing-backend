@@ -1,5 +1,0 @@
-+ docker-compose up test --build --exit-code-from test
-ERROR: The Compose file './docker-compose.yml' is invalid because:
-services.test.depends_on contains an invalid type, it should be an array
-
-Exited with code exit status 1
