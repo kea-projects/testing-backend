@@ -1,0 +1,43 @@
+version: '3'
+
+services:
+  test:
+    build:
+      context: .
+      dockerfile: ./docker/app/Dockerfile
+    network_mode: "host"
+    environment:
+      - PORT=$PORT
+      - DATABASE=$DATABASE
+      - DB_USERNAME=$DB_USERNAME
+      - DB_PASSWORD=$DB_PASSWORD
+      - DB_HOST=$DB_HOST
+      - MICROSOFT_CLIENT_ID=$MICROSOFT_CLIENT_ID
+      - MICROSOFT_CLIENT_SECRET=$MICROSOFT_CLIENT_SECRET
+      - MICROSOFT_CALL_BACK_URL=$MICROSOFT_CALL_BACK_URL
+      - MICROSOFT_SCOPE=$MICROSOFT_SCOPE
+      - SESSION_SECRET=$SESSION_SECRET
+      - SESSION_RESAVE=$SESSION_RESAVE
+      - SESSION_SAVEUNINITIALIZED=$SESSION_SAVEUNINITIALIZED
+      - SESSION_COOKIE_SECURE=$SESSION_COOKIE_SECURE
+      - FRONTEND_APP=$FRONTEND_APP
+    # ports:
+      # - 4200:4200
+    depends_on:
+      mysql:
+        condition: service_healthy
+  mysql:
+    image: mysql:latest
+    network_mode: "host"
+    environment:
+      - MYSQL_ROOT_PASSWORD=$DB_PASSWORD
+      - MYSQL_DATABASE=$DATABASE
+      - MYSQL_USER=$DB_USERNAME
+      - MYSQL_PASSWORD=$DB_PASSWORD
+    # ports:
+      # - 3306:3306
+    security_opt:
+      - seccomp:unconfined
+    healthcheck:
+      test: ["CMD-SHELL", "echo 'HELLO WORLD' "]
+      start_period: 60s

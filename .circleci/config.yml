@@ -1,0 +1,24 @@
+version: 2.1
+executors:
+  runner:
+    machine:
+      image: "ubuntu-2004:current"
+      docker_layer_caching: true
+
+jobs:
+  build:
+    executor: runner
+    steps:
+      - checkout
+      - run:
+          name: Test for ENV
+          command: |
+            a=123
+      - run:
+          name: Check docker compose config
+          command: |
+            docker-compose config
+      - run:
+          name: Run tests using `docker-compose`
+          command: |
+            docker-compose up --build --exit-code-from test
