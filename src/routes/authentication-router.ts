@@ -1,10 +1,8 @@
 import { Router } from "express";
 import passport from "passport";
 import { isAuthenticated } from "../authentication/user-authentication";
-import { Role } from "../models/roles";
 import { GenericRoleService } from "../utils/generic-service-initializer";
 import { StatusCode } from "../utils/status-code";
-import { CustomResponse } from "../utils/custom-response";
 
 const router = Router();
 // ------------------------------------------------
@@ -27,7 +25,7 @@ router.get("/login/failed", (_req, res) => {
 
 router.get("/login/success", async (req, res) => {
   const roleId = req.user?.roleId;
-  const roleResponse = (await GenericRoleService.findByPk(roleId!)) as CustomResponse<Role>;
+  const roleResponse = (await GenericRoleService.findByPk(roleId!));
   if (roleResponse.statusCode === StatusCode.Success) {
     const userResponse = {
       userId: req.user!.userId,

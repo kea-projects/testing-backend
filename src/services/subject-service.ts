@@ -1,11 +1,11 @@
 import { CustomResponse } from "../utils/custom-response";
-import { StatusCode as sc } from "../utils/status-code";
+import { StatusCode as sc, StatusCode } from "../utils/status-code";
 
 class SubjectService<T> {
 
     constructor(protected subjectModel: any) {}
 
-    async findByTeacherId(teacherId: string): Promise<CustomResponse<T>> {
+    async findByTeacherId(teacherId: string): Promise<CustomResponse<StatusCode, T>> {
         try {
             const foundSubjects = await this.subjectModel.findAll({
                 where: {

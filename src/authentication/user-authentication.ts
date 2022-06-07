@@ -17,7 +17,7 @@ export const isAuthenticated = (
   if (req.isAuthenticated()) {
     return next();
   }
-  res.status(403).send({ error: 403, message: "Not authorized" });
+  return res.status(403).send({ error: 403, message: "Not authorized" });
 };
 
 export const teacherGuard = (
@@ -28,6 +28,7 @@ export const teacherGuard = (
   if((req.user?.roleId)?.toString() === TEACHER_ROLE_ID) {
     return next();
   } else {
+		console.log("req user: ", req.user?.roleId);
     return res.status(403).send({ status: 403, message: "Not authorized" });
   }
 };

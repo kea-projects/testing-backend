@@ -1,7 +1,7 @@
 import { Sequelize } from "sequelize";
 import { userAssociationInit, userInit } from "../models/users";
 import { subjectAssociationInit, subjectInit } from "../models/subjects";
-import { Role, roleAssociationInit, roleInit } from "../models/roles";
+import { roleAssociationInit, roleInit } from "../models/roles";
 import { exit } from "process";
 import { lectureAssociationInit, lectureInit } from "../models/lectures";
 import {
@@ -18,7 +18,8 @@ import path from "path";
  * The schema MUST exist ahead of time or this will throw an error.
  */
 const loadDB = async (sequelize: Sequelize) => {
-  testDbConnection(sequelize).then(syncModels);
+  const connection = await testDbConnection(sequelize)
+  return syncModels(connection);
 };
 
 /**

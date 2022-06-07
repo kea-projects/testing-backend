@@ -1,6 +1,6 @@
 import { StatusCode } from "./status-code";
 
-export interface CustomResponse<T> {
+export interface CustomResponse<StatusCode, T> {
   model?: T;
   statusCode: StatusCode;
 }

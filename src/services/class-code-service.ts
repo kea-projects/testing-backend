@@ -1,36 +1,40 @@
 import { Response } from "express";
 import { Attendance } from "../models/attendances";
+import { Lecture } from "../models/lectures";
 import { CustomResponse } from "../utils/custom-response";
 import { GenericAttendanceService } from "../utils/generic-service-initializer";
 import { responseHandler } from "../utils/response-handler";
 import { StatusCode as sc, StatusCode } from "../utils/status-code";
+import { ModelService } from "./model-service";
 
+const LectureService = new ModelService(Lecture);
 class ClassCodeService {
   static validCodes = new Map<number, string>();
   static CODE_LENGTH: number = 8;
 
-  static generateCode(lectureId: string) {
+  static async generateCode(lectureId: string) {
     const lectureNumber = Number.parseInt(lectureId) || 0;
-
-    if (lectureNumber) {
-      const randomCode = createCode();
-      ClassCodeService.validCodes.set(lectureNumber, randomCode);
-
-      console.log("Valid codes are: ", ClassCodeService.validCodes);
-
-      return randomCode;
-    } else {
-      return "invalid lecture id";
-    }
+		
+		const response = await LectureService.findByPk(lectureId);
+		if(response.statusCode === sc.Success){
+			const randomCode = createCode();
+			ClassCodeService.validCodes.set(lectureNumber, randomCode);
+	
+			console.log("Valid codes are: ", ClassCodeService.validCodes);
+	
+			return randomCode;
+		} else {
+			return "invalid lecture id";
+		}
   }
 
   static deleteCode(lectureId: string) {
     const lectureNumber = Number.parseInt(lectureId) || 0;
-
+		console.log("Delete code was called! For lectureId: ", lectureId);
     if (lectureNumber) {
       const status = ClassCodeService.validCodes.delete(lectureNumber);
 
-      console.log("Valid codes are: ", ClassCodeService.validCodes);
+      //console.log("Valid codes are: ", ClassCodeService.validCodes);
 
       return status;
     } else {
@@ -38,7 +42,7 @@ class ClassCodeService {
     }
   }
 
-  static validateCode(code: string): CustomResponse<number> {
+  static validateCode(code: string): CustomResponse<StatusCode, number> {
     let lectureId = 0;
 
     ClassCodeService.validCodes.forEach((value, key) => {
@@ -55,7 +59,7 @@ class ClassCodeService {
   }
 
   static async markAttendance(
-    status: CustomResponse<number>,
+    status: CustomResponse<StatusCode, number>,
     userId: string,
     res: Response
   ) {
@@ -76,7 +80,7 @@ const createCode = (): string => {
   const max = 90; // char id: Z
   let randomString = "";
 
-  for (let i = 0; i <= ClassCodeService.CODE_LENGTH; i++) {
+  for (let i = 0; i < ClassCodeService.CODE_LENGTH; i++) {
     const randomLetter = String.fromCharCode(randomNumber(min, max));
     randomString += randomLetter;
   }
@@ -88,3 +92,4 @@ const randomNumber = (min: number, max: number) => {
 };
 
 export { ClassCodeService };
+
