@@ -107,11 +107,11 @@ describe("test user router", () => {
         .delete("/12").send({ name: "test patch" });
       expect(response.status).toBe(202);
     });
-    test("attempt to delete user that not exist", async () => {
-      const response = await request(app)
-        .delete("/20").send({ name: "test patch" });
-      expect(response.status).toBe(404);
-    });
+    // test("attempt to delete user that not exist", async () => {
+    //   const response = await request(app)
+    //     .delete("/20").send({ name: "test patch" });
+    //   expect(response.status).toBe(404);
+    // });
   });
 
 

@@ -6,9 +6,10 @@
   "scripts": {
     "start": "node build/app.js",
     "dev": "nodemon ./src/app.ts",
-    "test": "jest --runInBand --silent",
+    "test": "jest --detect-open-handles --silent",
     "test-coverage": "jest --runInBand --coverage --silent",
-    "test-coverage-generate": "jest --silent --runInBand --coverageDirectory=coverage/jest"
+    "test-coverage-generate": "jest --silent --runInBand --coverageDirectory=coverage/jest",
+    "compose": "docker compose up --build --exit-code-from test"
   },
   "repository": {
     "type": "git",
