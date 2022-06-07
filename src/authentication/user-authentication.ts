@@ -14,7 +14,6 @@ export const isAuthenticated = (
   res: Response,
   next: NextFunction
 ) => {
-	return next();
   if (req.isAuthenticated()) {
     return next();
   }
@@ -26,7 +25,6 @@ export const teacherGuard = (
   res: Response,
   next: NextFunction
 ) => {
-	return next();
   if((req.user?.roleId)?.toString() === TEACHER_ROLE_ID) {
     return next();
   } else {

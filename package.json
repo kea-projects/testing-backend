@@ -8,7 +8,8 @@
     "dev": "nodemon ./src/app.ts",
     "test": "jest --runInBand --silent",
     "test-coverage": "jest --runInBand --coverage --silent",
-    "test-coverage-generate": "jest --silent --runInBand --coverageDirectory=coverage/jest"
+    "test-coverage-generate": "jest --silent --runInBand --coverageDirectory=coverage/jest",
+    "compose": "docker compose up --exit-code-from test"
   },
   "repository": {
     "type": "git",
