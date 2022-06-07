@@ -26,12 +26,13 @@ const frontendHost = process.env.FRONTEND_APP || "localhost:3000";
 
 // Initialize the express engine
 const app: express.Application = express();
-// app.use(
-//   cors({
-//     origin: frontendHost,
-//     credentials: true,
-//   })
-// );
+app.use(
+  cors({
+    origin: frontendHost,
+    credentials: true,
+  })
+);
+
 app.use(json());
 loadDB(sequelize);
 
