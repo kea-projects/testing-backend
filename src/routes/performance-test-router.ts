@@ -78,7 +78,7 @@ router.post("/student-attend", async (req, res) => {
 	ClassCodeService.markAttendance(status, userId, res);
 })
 
-// Deletes all in memory variables that were generated during the test.
+// Deletes all in memory variables that were generated during the test. 
 // 		In order to reset the database, you have to stop and start the docker containers.
 router.delete("/delete", async (req, res) => {
 	let deletedCount = 0;
