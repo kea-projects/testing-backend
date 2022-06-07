@@ -5,6 +5,7 @@ services:
     build:
       context: .
       dockerfile: ./docker/app/Dockerfile
+    network_mode: "host"
     environment:
       - PORT=$PORT
       - DATABASE=$DATABASE
@@ -20,25 +21,23 @@ services:
       - SESSION_SAVEUNINITIALIZED=$SESSION_SAVEUNINITIALIZED
       - SESSION_COOKIE_SECURE=$SESSION_COOKIE_SECURE
       - FRONTEND_APP=$FRONTEND_APP
-    ports:
-      - 4200:4200
+    # ports:
+      # - 4200:4200
     depends_on:
       mysql:
         condition: service_healthy
   mysql:
-    build:
-      context: .
-      dockerfile: ./docker/mysql/Dockerfile
+    image: mysql:latest
+    network_mode: "host"
     environment:
       - MYSQL_ROOT_PASSWORD=$DB_PASSWORD
       - MYSQL_DATABASE=$DATABASE
       - MYSQL_USER=$DB_USERNAME
       - MYSQL_PASSWORD=$DB_PASSWORD
-    ports:
-      - 3306:3306
+    # ports:
+      # - 3306:3306
+    security_opt:
+      - seccomp:unconfined
     healthcheck:
-      test: ["CMD-SHELL", "/usr/bin/mysql --user=$DB_USERNAME --password=$DB_PASSWORD --execute 'SHOW DATABASES';"]
-      interval: 4s
-      timeout: 2s
-      retries: 10
-      start_period: 3s
+      test: ["CMD-SHELL", "echo 'HELLO WORLD' "]
+      start_period: 60s
