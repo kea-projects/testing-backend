@@ -7,7 +7,7 @@ import { User } from "../models/users";
 /**
  * Checks if user is authenticated
  * - If yes: go to next()
- * - If no: redirect to /auth/login
+ * - If no: redirect to /auth/login 
  */
 export const isAuthenticated = (
   req: Request,
